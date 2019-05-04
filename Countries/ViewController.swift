@@ -7,9 +7,25 @@
 //
 
 import UIKit
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var countryProvider = CountryProvider()
     var countries = [Country]()
+    @IBOutlet var tableView: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if countries.count > 0
+        {
+        return(countries.count)
+        }
+        else { return 0 }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
+        cell.textLabel?.text = countries[indexPath.row].name
+        return cell
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showCountries()
@@ -25,7 +41,7 @@ class ViewController: UIViewController {
                         self.countries = countriesGot
                         print("SELF COUNTRIES \(self.countries)")
                         DispatchQueue.main.async{
-                            //reloadTable
+                            self.tableView.reloadData()
                         }
                     }
             }
