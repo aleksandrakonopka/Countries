@@ -7,54 +7,31 @@
 //
 
 import UIKit
-
-struct Country : Decodable
-{
-    var name: String
-    var topLevelDomain : [String]
-    var alpha2Code : String
-    var alpha3Code : String
-    var callingCodes : [String]
-    var capital : String
-    var altSpellings : [String]
-    var region : String
-    var subregion : String
-    var population : Int
-    var latlng : [Float]
-    var demonym : String
-    var area : Double? = 0
- //  var gini : Double
-    var timezones : [String]
-    var borders : [String]
-    var nativeName : String
-    //var numericCode : String
-    //var currencies
-    //var languages
-    //var translations : [String: String]
-    var flag : String
-    //var regionBlocs
-    //var cioc : String
-}
-
 class ViewController: UIViewController {
-
+    var countryProvider = CountryProvider()
+    var countries = [Country]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Zaczynamy!")
-        let jsonUrlString = "https://restcountries.eu/rest/v2/all"
-        let url = URL(string:jsonUrlString)!
-        
-        URLSession.shared.dataTask(with: url) { (data, response, err) in
-            do {
-                //print("weszlo")
-                guard let data = data else {return}
-                let countries = try JSONDecoder().decode([Country].self, from: data)
-                print(countries)
-            } catch let jsonErr {
-                print("Error serializing json:",jsonErr)
+        showCountries()
+    }
+    
+    @objc func showCountries(){
+        print("jajko")
+        Dispatch.DispatchQueue.global(qos: .utility).async {
+            self.countryProvider.fetch(completion: { (countriesGet, errorGet) in
+                print(countriesGet)
+                if let countriesGot = countriesGet{
+                    if errorGet == nil || countriesGot.count > 1{
+                        self.countries = countriesGot
+                        print("SELF COUNTRIES \(self.countries)")
+                        DispatchQueue.main.async{
+                            //reloadTable
+                        }
+                    }
             }
-        }.resume()
-        
+        })
+            
+       }
     }
 
 
