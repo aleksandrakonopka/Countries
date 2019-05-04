@@ -8,21 +8,31 @@
 
 import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var searchBar: UISearchBar!
     var countryProvider = CountryProvider()
     var countries = [Country]()
+    var searchCountries = [Country] ()
     @IBOutlet var tableView: UITableView!
+    var searching = false
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if countries.count > 0
+        if searching
         {
-        return(countries.count)
-        }
-        else { return 0 }
+            return(searchCountries.count)
+        } else
+        {  return(countries.count) }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
+        if searching == true
+        {
+           cell.textLabel?.text = searchCountries[indexPath.row].name
+        }
+        else
+        {
         cell.textLabel?.text = countries[indexPath.row].name
+        }
         return cell
     }
     
@@ -53,3 +63,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 }
 
+
+extension ViewController : UISearchBarDelegate{
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchCountries = countries.filter({$0.name.prefix(searchText.count) == searchText})
+        searching = true
+        tableView.reloadData()
+    }
+}
