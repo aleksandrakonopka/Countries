@@ -167,6 +167,7 @@
                         <outlet property="callingCodeLabel" destination="iBk-rn-AKw" id="NwR-t3-Img"/>
                         <outlet property="capitalLabel" destination="g67-XB-s2T" id="ZAX-Kb-Fo4"/>
                         <outlet property="codeLabel" destination="2MH-6M-816" id="c6P-6K-gd1"/>
+                        <outlet property="myMap" destination="vTf-WG-z1b" id="lZV-Za-aqF"/>
                         <outlet property="nameLabel" destination="mLA-0l-KeX" id="BJb-Cn-mzw"/>
                         <outlet property="nativeNameLabel" destination="yJw-vB-ISt" id="RDY-BV-ouv"/>
                         <outlet property="populationLabel" destination="k5R-sD-CD9" id="qnn-ns-QTw"/>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class DetailsViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet var populationLabel: UILabel!
     @IBOutlet var areaLabel: UILabel!
     
+    @IBOutlet var myMap: MKMapView!
     
     var codes = ""
     
@@ -47,10 +49,23 @@ class DetailsViewController: UIViewController {
         {
         areaLabel.text = "Area: - "
         }
+        zoomOnRegion()
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func zoomOnRegion()
+    {
+        if let latitude = chosenCountry?.latlng[0]
+        {
+            let longitude = (chosenCountry?.latlng[1])!
+       //print((chosenCountry?.latlng[0])!)
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+        
+        myMap.setRegion(region,animated:true)
+        }
     }
     
     /*
