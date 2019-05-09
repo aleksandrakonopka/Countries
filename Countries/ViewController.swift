@@ -67,8 +67,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 extension ViewController : UISearchBarDelegate{
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchCountries = countries.filter({$0.name.prefix(searchText.count) == searchText})
+        searchCountries = countries.filter({$0.name.lowercased().prefix(searchText.count) == searchText.lowercased()})
         searching = true
+        tableView.reloadData()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
         tableView.reloadData()
     }
 }
