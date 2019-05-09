@@ -50,10 +50,19 @@ class DetailsViewController: UIViewController {
         areaLabel.text = "Area: - "
         }
         zoomOnRegion()
+        addAnnotation()
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    func addAnnotation()
+    {
+        let myAnnotation = MKPointAnnotation()
+        myAnnotation.coordinate = CLLocationCoordinate2DMake(Double(chosenCountry!.latlng[0]), Double(chosenCountry!.latlng[1]))
+        myAnnotation.title = chosenCountry!.name
+        myAnnotation.subtitle = "Capital: \(chosenCountry!.capital)"
+        self.myMap.addAnnotation(myAnnotation)
     }
     
     func zoomOnRegion()
@@ -61,9 +70,21 @@ class DetailsViewController: UIViewController {
         if let latitude = chosenCountry?.latlng[0]
         {
             let longitude = (chosenCountry?.latlng[1])!
+            var multiplier = 2.0
        //print((chosenCountry?.latlng[0])!)
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-        
+        if chosenCountry!.area! < 200
+        {
+            multiplier = 0.1
+        }
+        else if chosenCountry!.area! > 100000.0
+        {
+            multiplier = 10.0
+        }
+        else if chosenCountry!.area! > 1000000.0
+        {
+            multiplier = 75.0
+        }
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), span: MKCoordinateSpan(latitudeDelta: Double(multiplier), longitudeDelta: Double(multiplier)))
         myMap.setRegion(region,animated:true)
         }
     }

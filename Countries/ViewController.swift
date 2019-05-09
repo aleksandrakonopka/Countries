@@ -8,6 +8,7 @@
 
 import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var isIndicatorVisible = true
     var chosenCountry : Country?
     @IBOutlet var searchBar: UISearchBar!
     var countryProvider = CountryProvider()
@@ -71,6 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         print("SELF COUNTRIES \(self.countries)")
                         DispatchQueue.main.async{
                             self.tableView.reloadData()
+                            self.tableView.isHidden = false
                         }
                     }
             }
