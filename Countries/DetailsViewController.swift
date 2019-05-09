@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 class DetailsViewController: UIViewController {
-
+    @IBOutlet var backButton: UIButton!
+    
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var nativeNameLabel: UILabel!
     @IBOutlet var capitalLabel: UILabel!
@@ -51,10 +52,15 @@ class DetailsViewController: UIViewController {
         }
         zoomOnRegion()
         addAnnotation()
+        setBackButton()
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    func setBackButton()
+    {
+        backButton.layer.cornerRadius = 10
     }
     func addAnnotation()
     {
