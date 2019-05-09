@@ -8,6 +8,7 @@
 
 import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var chosenCountry : Country?
     @IBOutlet var searchBar: UISearchBar!
     var countryProvider = CountryProvider()
     var countries = [Country]()
@@ -22,7 +23,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else
         {  return(countries.count) }
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetails"
+        {
+            let destinationVC = segue.destination as! DetailsViewController
+                destinationVC.chosenCountry = chosenCountry
+            
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
         if searching == true
@@ -39,6 +47,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         showCountries()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searching == true
+        {
+            chosenCountry = searchCountries[indexPath.row]
+        }
+        else
+        {
+            chosenCountry = countries[indexPath.row]
+        }
+        performSegue(withIdentifier: "showDetails", sender: self)
     }
     
     @objc func showCountries(){

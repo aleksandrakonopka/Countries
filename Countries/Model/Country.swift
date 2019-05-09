@@ -34,5 +34,6 @@ struct Country : Decodable
     var flag : String
     //var regionBlocs
     //var cioc : String
+   
 }
 
