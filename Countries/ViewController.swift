@@ -9,6 +9,7 @@
 import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var isIndicatorVisible = true
+    @IBOutlet var cancelButton: UIButton!
     var chosenCountry : Country?
     @IBOutlet var searchBar: UISearchBar!
     var countryProvider = CountryProvider()
@@ -17,6 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var tableView: UITableView!
     var searching = false
     
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching
         {
@@ -45,10 +47,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return cell
     }
+
     
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        view.endEditing(true)
+        searching = false
+        searchBar.text = ""
+        tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         showCountries()
+        self.hideKeyboardWhenSwipeAround()
+        //cancelButton.layer.borderWidth = 1
+        //cancelButton.layer.borderColor
+        //cancelButton.layer.borderColor
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       view.endEditing(true)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if searching == true
@@ -93,9 +109,22 @@ extension ViewController : UISearchBarDelegate{
         searching = true
         tableView.reloadData()
     }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searching = false
-        searchBar.text = ""
-        tableView.reloadData()
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        view.endEditing(true)
+//        searching = false
+//        searchBar.text = ""
+//        tableView.reloadData()
+//    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenSwipeAround() {
+        let swipe: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        swipe.cancelsTouchesInView = false
+        view.addGestureRecognizer(swipe)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

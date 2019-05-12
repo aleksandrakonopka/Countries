@@ -18,9 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezS-4Q-avq">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ezS-4Q-avq">
+                                <rect key="frame" x="0.0" y="20" width="293" height="44"/>
+                                <color key="backgroundColor" red="0.69075471162796021" green="0.97982817888259888" blue="0.9607735276222229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.89115596900000005" blue="0.92464299930000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="barTintColor" red="0.67943173649999999" green="0.97931724789999997" blue="0.96052700280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -45,29 +46,47 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Nnu-yO-w8Z"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dD3-1n-oiR">
+                                <rect key="frame" x="293" y="20" width="82" height="44"/>
+                                <color key="backgroundColor" red="0.69075471162796021" green="0.97982817888259888" blue="0.9607735276222229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="82" id="Bxa-EJ-rhf"/>
+                                    <constraint firstAttribute="height" constant="44" id="ndb-9d-u9o"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OCo-LE-FWN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1pu-8a-BiN"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3Fc-PA-74k"/>
+                            <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="dD3-1n-oiR" secondAttribute="bottom" id="6aL-Ht-5hk"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="90N-HB-Meq"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="G5G-9s-pou"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="K1l-YD-sV6"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LRt-lx-Mji"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="NF1-Jw-Yeu"/>
+                            <constraint firstItem="dD3-1n-oiR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="O9S-7J-hjW"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SWa-b1-JLE"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Vdc-ZX-ePQ"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="ezS-4Q-avq" secondAttribute="bottom" id="WXx-v1-0rS"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="ezS-4Q-avq" secondAttribute="bottom" id="aiS-nu-q0Q"/>
-                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cy4-Ke-SwH"/>
+                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-82" id="cy4-Ke-SwH"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e3t-r2-Wkf"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="egt-iG-Jy6"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gFb-US-B2m"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="ezS-4Q-avq" secondAttribute="bottom" id="kbp-CH-BkO"/>
-                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="mcr-HJ-rWt"/>
+                            <constraint firstItem="dD3-1n-oiR" firstAttribute="leading" secondItem="ezS-4Q-avq" secondAttribute="trailing" id="lFS-1R-9Sc"/>
+                            <constraint firstItem="dD3-1n-oiR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mVG-La-bCK"/>
+                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-82" id="mcr-HJ-rWt"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="nLN-77-7Ei"/>
                             <constraint firstItem="ezS-4Q-avq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="olr-oB-qTf"/>
-                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sh5-JD-NMp"/>
+                            <constraint firstItem="ezS-4Q-avq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-82" id="sh5-JD-NMp"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tRa-2d-plz"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="ezS-4Q-avq" secondAttribute="bottom" id="uDv-lG-Aqf"/>
                             <constraint firstItem="b0F-oV-aMH" firstAttribute="top" secondItem="ezS-4Q-avq" secondAttribute="bottom" id="uq9-JP-8Ku"/>
@@ -76,6 +95,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="dD3-1n-oiR" id="CkW-Xg-iqM"/>
                         <outlet property="searchBar" destination="ezS-4Q-avq" id="Nqd-vC-4Qe"/>
                         <outlet property="tableView" destination="b0F-oV-aMH" id="fnf-qU-NVe"/>
                         <segue destination="tQY-2B-1WS" kind="show" identifier="showDetails" id="0HQ-wu-o8I"/>

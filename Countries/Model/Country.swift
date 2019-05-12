@@ -22,7 +22,7 @@ struct Country : Decodable
     var population : Int
     var latlng : [Float]
     var demonym : String
-    var area : Double? = 0
+    var area : Double?
     //  var gini : Double
     var timezones : [String]
     var borders : [String]
