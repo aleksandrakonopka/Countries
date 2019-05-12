@@ -10,19 +10,18 @@ import Foundation
 
 class CountryProvider: Providing {
     
- 
+    let jsonUrlString = "https://restcountries.eu/rest/v2/all"
+    
     func fetch(completion : @escaping ([Country]?,Error?) -> Void){
-        let jsonUrlString = "https://restcountries.eu/rest/v2/all"
         let url = URL(string:jsonUrlString)!
         
-       let task = URLSession.shared.dataTask(with: url) { (data, response, err) in
+        let task = URLSession.shared.dataTask(with: url) { (data, response, err) in
             do {
                 guard let data = data else {return}
                 let countries = try JSONDecoder().decode([Country].self, from: data)
                 print(countries)
                 completion(countries, nil)
             } catch let jsonErr {
-                print("Error serializing json:",jsonErr)
                 completion(nil,jsonErr)
             }
             }

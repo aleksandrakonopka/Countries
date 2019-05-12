@@ -11,7 +11,6 @@ import MapKit
 
 class DetailsViewController: UIViewController {
     @IBOutlet var backButton: UIButton!
-    
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var nativeNameLabel: UILabel!
     @IBOutlet var capitalLabel: UILabel!
@@ -19,19 +18,23 @@ class DetailsViewController: UIViewController {
     @IBOutlet var callingCodeLabel: UILabel!
     @IBOutlet var populationLabel: UILabel!
     @IBOutlet var areaLabel: UILabel!
-    
     @IBOutlet var myMap: MKMapView!
-    
     var codes = ""
-    
     var chosenCountry : Country?
-    
-    //var info : (nameLabel: String, nativeName : String, capital : String, code : String, callingCode : String)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setInfoLabels()
+        zoomOnRegion()
+        addAnnotation()
+        setBackButton()
+    }
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func setInfoLabels()
+    {
         capitalLabel.text = "Capital: \(chosenCountry!.capital)"
         nameLabel.text = "Name: \(chosenCountry!.name)"
         nativeNameLabel.text = "Native Name: \(chosenCountry!.nativeName)"
@@ -44,19 +47,12 @@ class DetailsViewController: UIViewController {
         populationLabel.text = "Population: \(chosenCountry!.population)"
         if chosenCountry!.area != nil
         {
-        areaLabel.text = "Area: \(chosenCountry!.area!)"
+            areaLabel.text = "Area: \(chosenCountry!.area!)"
         }
         else
         {
-        areaLabel.text = "Area: - "
+            areaLabel.text = "Area: - "
         }
-        zoomOnRegion()
-        addAnnotation()
-        setBackButton()
-    }
-    
-    @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     func setBackButton()
     {
@@ -74,7 +70,6 @@ class DetailsViewController: UIViewController {
         self.myMap.addAnnotation(myAnnotation)
         }
     }
-    
     func zoomOnRegion()
     {
         if let latitude = chosenCountry?.latlng[0]
@@ -96,19 +91,8 @@ class DetailsViewController: UIViewController {
                     multiplier = 75.0
                 }
         }
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), span: MKCoordinateSpan(latitudeDelta: Double(multiplier), longitudeDelta: Double(multiplier)))
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude)), span: MKCoordinateSpan(latitudeDelta: Double(multiplier), longitudeDelta: Double(multiplier)))
         myMap.setRegion(region,animated:true)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

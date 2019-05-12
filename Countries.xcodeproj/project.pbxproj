@@ -66,6 +66,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F408E74228844540050638B /* App delegate */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B522D227D81BC00977B10 /* AppDelegate.swift */,
+			);
+			path = "App delegate";
+			sourceTree = "<group>";
+		};
+		6F408E752288446F0050638B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B522F227D81BC00977B10 /* ViewController.swift */,
+				6F8E419522842BD300F08E76 /* DetailsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6F408E76228844830050638B /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				6F5B5231227D81BC00977B10 /* Main.storyboard */,
+				6F5B5236227D81C100977B10 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		6F5B5221227D81BC00977B10 = {
 			isa = PBXGroup;
 			children = (
@@ -87,16 +113,14 @@
 		6F5B522C227D81BC00977B10 /* Countries */ = {
 			isa = PBXGroup;
 			children = (
+				6F408E76228844830050638B /* Storyboard */,
+				6F408E752288446F0050638B /* ViewControllers */,
+				6F408E74228844540050638B /* App delegate */,
 				6FDD97E7227D998900671145 /* Provider */,
 				6FDD97E4227D994900671145 /* Providing */,
 				6FDD97E1227D98C600671145 /* Model */,
-				6F5B522D227D81BC00977B10 /* AppDelegate.swift */,
-				6F5B522F227D81BC00977B10 /* ViewController.swift */,
-				6F5B5231227D81BC00977B10 /* Main.storyboard */,
 				6F5B5234227D81C100977B10 /* Assets.xcassets */,
-				6F5B5236227D81C100977B10 /* LaunchScreen.storyboard */,
 				6F5B5239227D81C100977B10 /* Info.plist */,
-				6F8E419522842BD300F08E76 /* DetailsViewController.swift */,
 			);
 			path = Countries;
 			sourceTree = "<group>";

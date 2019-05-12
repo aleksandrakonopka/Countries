@@ -23,17 +23,9 @@ struct Country : Decodable
     var latlng : [Float]
     var demonym : String
     var area : Double?
-    //  var gini : Double
     var timezones : [String]
     var borders : [String]
     var nativeName : String
-    //var numericCode : String
-    //var currencies
-    //var languages
-    //var translations : [String: String]
     var flag : String
-    //var regionBlocs
-    //var cioc : String
-   
 }
 

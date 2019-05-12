@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController{
     var isIndicatorVisible = true
     @IBOutlet var cancelButton: UIButton!
     var chosenCountry : Country?
@@ -18,37 +18,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var tableView: UITableView!
     var searching = false
     
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching
-        {
-            return(searchCountries.count)
-        } else
-        {  return(countries.count) }
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails"
         {
             let destinationVC = segue.destination as! DetailsViewController
                 destinationVC.chosenCountry = chosenCountry
-            
         }
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
-        cell.selectionStyle = .none
-        if searching == true
-        {
-           cell.textLabel?.text = searchCountries[indexPath.row].name
-        }
-        else
-        {
-        cell.textLabel?.text = countries[indexPath.row].name
-        }
-        return cell
-    }
-
-    
     @IBAction func cancelButtonPressed(_ sender: Any) {
         view.endEditing(true)
         searching = false
@@ -59,46 +35,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         showCountries()
         self.hideKeyboardWhenSwipeAround()
-        //cancelButton.layer.borderWidth = 1
-        //cancelButton.layer.borderColor
-        //cancelButton.layer.borderColor
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
        view.endEditing(true)
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if searching == true
-        {
-            chosenCountry = searchCountries[indexPath.row]
-        }
-        else
-        {
-            chosenCountry = countries[indexPath.row]
-        }
-        performSegue(withIdentifier: "showDetails", sender: self)
-    }
     
     @objc func showCountries(){
-        print("jajko")
         Dispatch.DispatchQueue.global(qos: .utility).async {
             self.countryProvider.fetch(completion: { (countriesGet, errorGet) in
-                print(countriesGet)
                 if let countriesGot = countriesGet{
                     if errorGet == nil || countriesGot.count > 1{
                         self.countries = countriesGot
-                        print("SELF COUNTRIES \(self.countries)")
                         DispatchQueue.main.async{
                             self.tableView.reloadData()
                             self.tableView.isHidden = false
                         }
                     }
-            }
+                }
+                else
+                {
+                    if errorGet != nil || countriesGet == nil
+                    {
+                        self.addAlert()
+                    }
+                }
         })
-            
        }
     }
-
-
+    func addAlert()
+    {
+        let alert = UIAlertController(title: "Cant load data", message: "Try again later", preferredStyle: .alert )
+        let ok = UIAlertAction(title: "OK", style: .default){ action in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(ok)
+        self.present(alert,animated: true, completion: nil)
+    }
 }
 
 
@@ -109,12 +81,6 @@ extension ViewController : UISearchBarDelegate{
         searching = true
         tableView.reloadData()
     }
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        view.endEditing(true)
-//        searching = false
-//        searchBar.text = ""
-//        tableView.reloadData()
-//    }
 }
 
 extension UIViewController {
@@ -126,5 +92,40 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension ViewController : UITableViewDelegate, UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searching
+        {
+            return(searchCountries.count)
+        } else
+        {  return(countries.count) }
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
+        cell.selectionStyle = .none
+        if searching == true
+        {
+            cell.textLabel?.text = searchCountries[indexPath.row].name
+        }
+        else
+        {
+            cell.textLabel?.text = countries[indexPath.row].name
+        }
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searching == true
+        {
+            chosenCountry = searchCountries[indexPath.row]
+        }
+        else
+        {
+            chosenCountry = countries[indexPath.row]
+        }
+        performSegue(withIdentifier: "showDetails", sender: self)
     }
 }
